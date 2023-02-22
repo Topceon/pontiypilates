@@ -1,8 +1,7 @@
 <?php
-error_reporting(0);
-mysqli_report(MYSQLI_REPORT_OFF);
-$connection = mysqli_connect('127.0.0.1', 'root', '', 'pontiypilates');
 
+
+$conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);
 if( $connection == true){
 echo 0;
 
@@ -28,6 +27,6 @@ $x = '{ "0": "odin",
 "17": "tri"}';
 }
 echo $x;
-$sql = "INSERT INTO `castomer` (`name`, group_id`, `charact`) VALUES (\'Имя2 Фамилия\', \'1\',\'70\')";
+$sql = "INSERT INTO `castomers` (`name`, group_id`, `charact`) VALUES (\'Имя2 Фамилия\', \'1\',\'70\')";
 
 ?>
