@@ -1,0 +1,118 @@
+body {
+    font-family: arial;
+    padding: 0;
+    margin: 0;
+    background: #9ea8a7;
+}
+
+.fix_row2 { /* "." обозначается класс */
+    padding-left: 5%;
+    position: fixed;
+    height: 330px;
+    width: 100%;
+    line-height: 4vh;
+    font-size: 100%;
+    box-shadow: 0 20px 30px 10px #464646;
+    z-index: 2;
+}
+
+.fix_row { /* "." обозначается класс */
+    background: #9ea8a7;
+    padding-left: 5%;
+    position: fixed;
+    height: 330px;
+    width: 100%;
+    line-height: 4vh;
+    font-size: 100%;
+    box-shadow: 0 10px 15px #464646;
+    z-index: 999;
+}
+
+.list { /* "." обозначается класс */
+    padding: 370px 4%;
+    box-shadow: 5px 0 20px 10px #464646 inset;
+    z-index: 2;
+}
+
+#dat,#grup{
+    margin-left: 4%;
+    margin-top: 4%;
+    height: 100px;
+    width: 80%;
+    font-size: 40px;
+    border-radius: 1vh;
+    box-shadow: 5px 10px 30px #464646 inset;
+}
+
+.row { /* "." обозначается класс */
+    position: relative;
+    background: #9ea8a7;
+    line-height: 6vh;
+    font-size: 300%;
+    margin: 2% 0;
+    padding-left: 5%;
+    border-radius: 1vh;
+    box-shadow: 8px 8px 15px #464646;
+    z-index: 3;
+}
+
+
+.first { /* "." обозначается класс */
+    background: #9ea8a7;
+    /*position: absolute;*/
+    height: 300px;
+    width: 100%;
+    font-size: 100%;
+}
+
+.last { /* "." обозначается класс */
+    background: #9ea8a7;
+    /*position: absolute;*/
+    /*padding: 3%;*/
+    height: 50vh;
+    width: 100%;
+    font-size: 1%;
+}
+
+.ch_box {
+    position: absolute;
+    right: 1%;
+    margin: 4%;
+    height: 3vh;
+    width: 3vh;
+    box-shadow: 5px 10px 10px #464646 inset;
+}
+
+.btn {
+    position: fixed;
+    background: #9ea8a7;
+    width: 16vh;
+    height: 10vh;
+    bottom: 100px;
+    left: 30px;
+    font-size: 400%;
+    border-radius: 5vh;
+    line-height: 10vh;
+    color: #005CC8;
+    text-align: center;
+    box-shadow: 15px 15px 15px #464646;
+    z-index: 5;
+}
+
+.btn2 {
+    position: fixed;
+    width: 16vh;
+    height: 8vh;
+    bottom: 100px;
+    left: 30px;
+    font-size: 500%;
+    border-radius: 4vh;
+    line-height: 8vh;
+    color: #9ea8a7;
+    text-align: center;
+    box-shadow: 25px 25px 25px #464646;
+    z-index: 2;
+}
+
+#left { /* '#' обозначается id */
+}
