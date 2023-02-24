@@ -1,5 +1,9 @@
 <?php
+
+include 'db.php';
+
 // пытаемся подключиться к бд, если не получается то возвращаем значение 0
+
 $conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);
 
 if (!$conn) {
@@ -8,6 +12,4 @@ if (!$conn) {
 }else{
     echo '1';
 }
-
-
 ?>

@@ -45,9 +45,9 @@ payment_customers_id INT (6) NOT NULL
 )";
 
 if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3) && mysqli_query($conn, $sql4)) {
-    echo "Table created successfully";
+    echo "Таблица создана успешно";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+    echo "Что то пошло не так: " . mysqli_error($conn);
 }
 
 ?>
