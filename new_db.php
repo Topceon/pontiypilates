@@ -49,5 +49,5 @@ if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2) && mysqli_query($co
 } else {
     echo "Что то пошло не так: " . mysqli_error($conn);
 }
-
+mysqli_close($conn);
 ?>

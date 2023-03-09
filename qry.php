@@ -10,6 +10,7 @@ if (!$conn) {
     echo '0';
     die("Ошибка подключения: " . mysqli_connect_error());
 }else{
-    echo '1';
+    echo 'База данных подключена';
 }
+mysqli_close($conn);
 ?>

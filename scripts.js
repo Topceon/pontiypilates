@@ -11,7 +11,7 @@ function new_db_php() {
         if (this.response === 'База данных успешно созданаТаблица создана успешно'){
             //кнопка должна быть удалена
             newdb_btn.remove();
-            console.log('test')
+            console.log(this.response)
         }
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/new_db.php');
@@ -23,11 +23,12 @@ function new_db_php() {
 function query_php() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
-        if (this.response === '1'){
+        if (this.response === 'База данных подключена'){
+            qroups_php()
             console.log(this.response)
         }else {
             let add_div_var = document.getElementById(`perva`)
-            add_div_var.insertAdjacentHTML('afterend', `<div class='row' id='newdb'>Создать новую базу данных?}</div>`)
+            add_div_var.insertAdjacentHTML('afterend', `<div class='row' id='newdb'>Создать новую базу данных?</div>`)
             console.log('Создать новую базу данных?')
             let btn_click = document.getElementById('newdb')
             btn_click.onclick = new_db_php
@@ -43,8 +44,14 @@ query_php()
 function qroups_php() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
-        if (this.response !== '0'){
-            console.log('test')
+        groups = JSON.parse(this.response)
+        console.log(groups)
+        let select = document.getElementById('grup');
+        for (let i = 0; i < groups.length; i++) {
+            let option = document.createElement("option");
+            option.value = groups[i].group_id;
+            option.text = groups[i].group;
+            select.add(option);
         }
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/groups.php');

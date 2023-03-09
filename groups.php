@@ -1,5 +1,5 @@
 <?php
-
+// этот файл обращается к БД и возвращает список всех групп
 include 'db.php';
 
 $conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);
@@ -9,12 +9,17 @@ if (!$conn) {
     die("Ошибка подключения: " . mysqli_connect_error());
 }
 
-$sql = "INSERT INTO `groups` (`name`) VALUES ('df3')";
+$sql = "SELECT group_id, group_name FROM groups";
+$result = mysqli_query($conn, $sql);
 
-if (mysqli_query($conn, $sql)) {
-    echo "Запись успешно добавлена в таблицу";
-} else {
-    echo "Ошибка: " . mysqli_error($conn);
+$rows = array();
+while ($row = mysqli_fetch_array($result)) {
+    $rows[] = array("group_id" => $row["group_id"], "group" => $row["group_name"]);
 }
-echo 'Testphp';
+
+$json = json_encode($rows);
+
+echo $json;
+
+mysqli_close($conn);
 ?>
