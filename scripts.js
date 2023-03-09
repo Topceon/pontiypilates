@@ -41,8 +41,18 @@ query_php()
 
 
 // функция достающая из базы данных клиентов по номеру группы
-function customer_php(a){
-    console.log(a)
+function customer_php(group_id_for_php){
+    let xhttp = new XMLHttpRequest()
+    xhttp.onload = function () {
+        // customers = JSON.parse(this.response)
+        console.log(this.response)
+        let select = document.getElementById('perva');
+        // for (let i = 0; i < customers.length; i++) {
+        // }
+    }
+    xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
+    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.send("param=" + group_id_for_php);
 }
 
 
@@ -60,8 +70,8 @@ function qroups_php() {
             select.add(option);
         }
         select.addEventListener('change', (event) =>{
-            let a = event.target.value;
-            customer_php(a);
+            let group_id_for_php = event.target.value;
+            customer_php(group_id_for_php);
         })
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/groups.php');
