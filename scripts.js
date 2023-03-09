@@ -40,6 +40,12 @@ function query_php() {
 query_php()
 
 
+// функция достающая из базы данных клиентов по номеру группы
+function customer_php(a){
+    console.log(a)
+}
+
+
 // функция достающая все группы из БД
 function qroups_php() {
     let xhttp = new XMLHttpRequest()
@@ -53,13 +59,14 @@ function qroups_php() {
             option.text = groups[i].group;
             select.add(option);
         }
+        select.addEventListener('change', (event) =>{
+            let a = event.target.value;
+            customer_php(a);
+        })
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/groups.php');
     xhttp.send();
 }
-
-
-// функция достающая из базы данных клиентов по номеру группы
 
 
 // функция срабатывающая при смене группы
