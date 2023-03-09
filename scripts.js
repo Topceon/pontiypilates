@@ -44,11 +44,15 @@ query_php()
 function customer_php(group_id_for_php){
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
-        // customers = JSON.parse(this.response)
-        console.log(this.response)
-        let select = document.getElementById('perva');
-        // for (let i = 0; i < customers.length; i++) {
-        // }
+        customers = JSON.parse(this.response)
+        console.log(customers)
+            let j_son = customers
+            for (let i = 0; i < customers.length; i++) {
+                let customer = customers[i];
+                let add_div_var = document.getElementById(`perva`)
+                add_div_var.insertAdjacentHTML('afterend', `<div class='row' id=${customer['customer_id']}>${customer['name']}
+                <input class="ch_box" name="${customer['customer_id']}" type="checkbox"></div>`)
+        }
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
