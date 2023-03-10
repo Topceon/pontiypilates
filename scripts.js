@@ -45,10 +45,7 @@ function customer_php(group_id_for_php){
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         customers = JSON.parse(this.response)
-        console.log(customers)
         let elementsToRemove = document.getElementsByClassName("row");
-        // console.log(elementsToRemove)
-        console.log(elementsToRemove.length)
             if (elementsToRemove.length !== 0) {
                 for (let i = elementsToRemove.length; i > 0; i--) {
                     elementsToRemove[i - 1].parentNode.removeChild(elementsToRemove[i - 1]);
@@ -72,7 +69,6 @@ function qroups_php() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         groups = JSON.parse(this.response)
-        console.log(groups)
         let select = document.getElementById('grup');
         for (let i = 0; i < groups.length; i++) {
             let option = document.createElement("option");
