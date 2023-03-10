@@ -40,13 +40,20 @@ function query_php() {
 query_php()
 
 
-// функция достающая из базы данных клиентов по номеру группы
+// функция достающая из базы данных клиентов по номеру группы и формирует список на страничеке
 function customer_php(group_id_for_php){
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         customers = JSON.parse(this.response)
         console.log(customers)
-            let j_son = customers
+        let elementsToRemove = document.getElementsByClassName("row");
+        // console.log(elementsToRemove)
+        console.log(elementsToRemove.length)
+            if (elementsToRemove.length !== 0) {
+                for (let i = elementsToRemove.length; i > 0; i--) {
+                    elementsToRemove[i - 1].parentNode.removeChild(elementsToRemove[i - 1]);
+                }
+            }
             for (let i = 0; i < customers.length; i++) {
                 let customer = customers[i];
                 let add_div_var = document.getElementById(`perva`)

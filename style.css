@@ -44,7 +44,8 @@ body {
     box-shadow: 5px 10px 30px #464646 inset;
 }
 
-.row { /* "." обозначается класс */
+
+.row,.row1 { /* "." обозначается класс */
     position: relative;
     background: #9ea8a7;
     line-height: 6vh;
