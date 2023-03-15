@@ -54,7 +54,7 @@ function customer_php(group_id_for_php){
             for (let i = 0; i < customers.length; i++) {
                 let customer = customers[i];
                 let add_div_var = document.getElementById(`perva`)
-                add_div_var.insertAdjacentHTML('afterend', `<div class='row' id=${customer['customer_id']}>${customer['name']}
+                add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['name']}
                 <input class="ch_box" name="${customer['customer_id']}" type="checkbox"></div>`)
         }
     }
@@ -86,9 +86,46 @@ function qroups_php() {
 }
 
 
-// функция срабатывающая при смене группы
+// функция срабатывающая при нажатии на кнопку готово для отправления в БД информации о присутствующих
+function attendance_insert() {
+    let xhttp = new XMLHttpRequest()
+    let elements_to_attendance = document.getElementsByClassName("ch_box");
+    customer_data = "data="
+    if (elements_to_attendance.length !== 0) {
+        check_comma = 0
+        for (let i = 0; i < elements_to_attendance.length; i++) {
+            if (elements_to_attendance[i].checked) {
+                if (check_comma){
+                    customer_data = customer_data + ",";
+                }
+                check_comma += 1;
+                customer_data = customer_data + "('2023-07-07'," + elements_to_attendance[i].name + ")"; // тут формируется текст для отправки
+            }
+        }
+    }
+    xhttp.onload = function () {
+        console.log(this.response)
+    }
+    xhttp.open("POST", 'http://' + SITE_NAME + '/insert_attendance.php', true);
+    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.send("" + customer_data); // тут будет переменная содержащая текст сформированный для отправки в БД
+
+}
+let btn_click = document.getElementById('perva')
+btn_click.onclick = attendance_insert
 
 
 // функция срабатывающая при нажатии на кнопку создания нового клиента
 
+
+// функция срабатывающая при нажатии на кнопку создания новой группы
+
+
+// функция срабатывающая при нажатии на кнопку создания таблицы присутствующих
+
+
+// функция срабатывающая при нажатии на кнопку создания таблицы оплативших
+
+
+// функция срабатывающая при нажатии на клиента в списке для отображения всех его данных
 
