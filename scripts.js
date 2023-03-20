@@ -2,6 +2,9 @@ console.log('JS подключен')
 
 SITE_NAME = 'pontiypilates'
 
+// получаем текущую дату
+let currentDate = new Date().toISOString().substr(0, 10);
+// let formattedDate = currentDate.toISOString().substr(0, 10);
 
 // функция срабатывающая при нажатии на кнопку создать новую базу данных
 function new_db_php() {
@@ -26,6 +29,10 @@ function query_php() {
         if (this.response === 'База данных подключена'){
             qroups_php()
             console.log(this.response)
+            // устанавливаем текущую дату в датаинпут
+            let date_attendance = document.getElementById('date_attendance');
+            console.log(currentDate)
+            date_attendance.value = currentDate;
         }else {
             let add_div_var = document.getElementById(`perva`)
             add_div_var.insertAdjacentHTML('afterend', `<div class='row' id='newdb'>Создать новую базу данных?</div>`)
@@ -92,6 +99,8 @@ function attendance_insert() {
     let elements_to_attendance = document.getElementsByClassName("ch_box");
     customer_data = "data="
     if (elements_to_attendance.length !== 0) {
+        let date_attendance = document.getElementById('date_attendance');
+        let dat6 = date_attendance.value;
         check_comma = 0
         for (let i = 0; i < elements_to_attendance.length; i++) {
             if (elements_to_attendance[i].checked) {
@@ -99,7 +108,8 @@ function attendance_insert() {
                     customer_data = customer_data + ",";
                 }
                 check_comma += 1;
-                customer_data = customer_data + "('2023-07-07'," + elements_to_attendance[i].name + ")"; // тут формируется текст для отправки
+                // тут формируется текст для отправки
+                customer_data = customer_data + "('" + dat6 + "'," + elements_to_attendance[i].name + ")";
             }
         }
     }

@@ -8,14 +8,13 @@ $conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);
 if (!$conn) {
     die("Ошибка подключения: " . mysqli_connect_error());
 }
-$b = '2023-03-09';
+$b = "('2023-03-20', '1')";
 $a = $_POST['data'];
 if ($a == ""){
     die("Не отмечен ни один клиент");
 }
-$data = $a;
 
-$sql = "INSERT INTO `attendance` (`attendance_date`, `attendance_customers_id`) VALUES $data";
+$sql = "INSERT INTO `attendance` (`attendance_date`, `attendance_customers_id`) VALUES $a";
 
 if (mysqli_query($conn, $sql)) {
     echo "Данные записаны";
