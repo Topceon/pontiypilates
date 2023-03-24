@@ -2,7 +2,7 @@ body {
     font-family: arial;
     padding: 0;
     margin: 0;
-    background: #9ea8a7;
+    background: #eeeeee;
 }
 
 .fix_row2 { /* "." обозначается класс */
@@ -12,12 +12,12 @@ body {
     width: 100%;
     line-height: 4vh;
     font-size: 100%;
-    box-shadow: 0 20px 30px 10px #464646;
+    box-shadow: 0 10px 40px 10px #464646;
     z-index: 2;
 }
 
 .fix_row { /* "." обозначается класс */
-    background: #9ea8a7;
+    background: #eeeeee;
     padding-left: 5%;
     position: fixed;
     height: 330px;
@@ -30,7 +30,7 @@ body {
 
 .list { /* "." обозначается класс */
     padding: 370px 4%;
-    box-shadow: 5px 0 20px 10px #464646 inset;
+    /*box-shadow: 5px 0 20px 10px #464646 inset;*/
     z-index: 2;
 }
 
@@ -47,7 +47,7 @@ body {
 
 .row,.row1 { /* "." обозначается класс */
     position: relative;
-    background: #9ea8a7;
+    background: #eeeeee;
     line-height: 6vh;
     font-size: 300%;
     margin: 2% 0;
@@ -59,7 +59,7 @@ body {
 
 
 .first { /* "." обозначается класс */
-    background: #9ea8a7;
+    background: #eeeeee;
     /*position: absolute;*/
     height: 300px;
     width: 100%;
@@ -67,7 +67,7 @@ body {
 }
 
 .last { /* "." обозначается класс */
-    background: #9ea8a7;
+    background: #eeeeee;
     /*position: absolute;*/
     /*padding: 3%;*/
     height: 50vh;
@@ -86,7 +86,7 @@ body {
 
 .btn {
     position: fixed;
-    background: #9ea8a7;
+    background: #eeeeee;
     width: 16vh;
     height: 10vh;
     bottom: 100px;
@@ -109,11 +109,36 @@ body {
     font-size: 500%;
     border-radius: 4vh;
     line-height: 8vh;
-    color: #9ea8a7;
+    color: #eeeeee;
     text-align: center;
     box-shadow: 25px 25px 25px #464646;
     z-index: 2;
 }
 
 #left { /* '#' обозначается id */
+}
+
+.footer {
+    position: fixed;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+    height: 10vh;
+    justify-content: space-around;
+    align-items: center;
+    background: #eeeeee;
+    box-shadow: 0 -10px 30px 10px #464646;
+    z-index: 999;
+}
+
+.foot_btn {
+    display: flex;
+    width: 7vh;
+    height: 7vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vh;
+    box-shadow: 3px -6px 15px 2px #464646;
+    background: #eaeaea;
+    /*background: #cd8776;*/
 }
