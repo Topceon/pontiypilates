@@ -67,12 +67,16 @@ function customer_php(group_id_for_php){
                 for (let i = 0; i < customers.length; i++) {
                     let customer = customers[i];
                     let add_div_var = document.getElementById(`perva`)
-                    add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['name']}
+                    add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['customer_name']}
                     <input class="ch_box" name="${customer['customer_id']}" type="checkbox"></div>`)
                 }
+            }else{
+                for (let i = 0; i < customers.length; i++) {
+                    let customer = customers[i];
+                    let add_div_var = document.getElementById(`perva`)
+                    add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['customer_name']}</div>`)
+                }
             }
-
-
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
