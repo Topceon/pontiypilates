@@ -21,8 +21,8 @@ $conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);
 //создание таблиц в базе данных
 
 $sql1 = "CREATE TABLE customers (
-customers_id INT (6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR (255) NOT NULL,
+customer_id INT (6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+customer_name VARCHAR (255) NOT NULL,
 lastname VARCHAR (255) NOT NULL,
 customer_group_id INT (6) NOT NULL
 )";
@@ -38,7 +38,7 @@ attendance_date DATE NOT NULL,
 attendance_customers_id INT (6) NOT NULL
 )";
 
-$sql4 = "CREATE TABLE payment (
+$sql4 = "CREATE TABLE payments (
 payment_id INT (6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 payment_date DATE NOT NULL,
 payment_customers_id INT (6) NOT NULL,
