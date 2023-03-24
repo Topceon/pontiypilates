@@ -4,7 +4,12 @@ SITE_NAME = 'pontiypilates'
 
 // получаем текущую дату
 let currentDate = new Date().toISOString().substr(0, 10);
-// let formattedDate = currentDate.toISOString().substr(0, 10);
+let group_id_for_php = 0;
+
+
+// переменная для переключения между стандартными страничками
+let switch_page = "attendance_page"
+
 
 // функция срабатывающая при нажатии на кнопку создать новую базу данных
 function new_db_php() {
@@ -58,12 +63,16 @@ function customer_php(group_id_for_php){
                     elementsToRemove[i - 1].parentNode.removeChild(elementsToRemove[i - 1]);
                 }
             }
-            for (let i = 0; i < customers.length; i++) {
-                let customer = customers[i];
-                let add_div_var = document.getElementById(`perva`)
-                add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['name']}
-                <input class="ch_box" name="${customer['customer_id']}" type="checkbox"></div>`)
-        }
+            if (switch_page === "attendance_page") {
+                for (let i = 0; i < customers.length; i++) {
+                    let customer = customers[i];
+                    let add_div_var = document.getElementById(`perva`)
+                    add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['name']}
+                    <input class="ch_box" name="${customer['customer_id']}" type="checkbox"></div>`)
+                }
+            }
+
+
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -84,7 +93,7 @@ function qroups_php() {
             select.add(option);
         }
         select.addEventListener('change', (event) =>{
-            let group_id_for_php = event.target.value;
+            group_id_for_php = event.target.value;
             customer_php(group_id_for_php);
         })
     }
@@ -124,6 +133,33 @@ function attendance_insert() {
 let btn_click = document.getElementById('perva')
 btn_click.onclick = attendance_insert
 
+
+// Функции для переключения стандартных страничек
+function attendance_page() {
+    switch_page = "attendance_page";
+    customer_php(group_id_for_php);
+}
+let btn_attendance_page = document.getElementById('home_page')
+btn_attendance_page.onclick = attendance_page
+
+function payment_page() {
+    switch_page = "payment_page";
+    customer_php(group_id_for_php);
+}
+let btn_payment_page = document.getElementById('payment_page')
+btn_payment_page.onclick = payment_page
+
+function new_customer_page() {
+    switch_page = "new_customer_page"
+}
+let btn_new_customer_page = document.getElementById('new_customer')
+btn_new_customer_page.onclick = new_customer_page
+
+function table_attendance_page() {
+    switch_page = "table_attendance_page"
+}
+let btn_table_attendance_page = document.getElementById('table_attendance')
+btn_table_attendance_page.onclick = table_attendance_page
 
 // функция срабатывающая при нажатии на кнопку создания нового клиента
 
