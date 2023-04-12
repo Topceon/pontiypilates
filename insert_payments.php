@@ -9,10 +9,9 @@ if (!$conn) {
     die("Ошибка подключения: " . mysqli_connect_error());
 }
 $a = $_POST['data'];
-$b = "('2023-03-20', '1', '8000')";
-// if ($a == ""){
-//     die("Не отмечен ни один клиент");
-// }
+if ($a == ""){
+    die("Не отмечен ни один клиент");
+}
 
 $sql = "INSERT INTO `payments` (`payment_date`, `payment_customers_id`, `payment_value`) VALUES $a";
 

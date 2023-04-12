@@ -8,7 +8,6 @@ $conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);
 if (!$conn) {
     die("Ошибка подключения: " . mysqli_connect_error());
 }
-$b = "('2023-03-20', '1')";
 $a = $_POST['data'];
 if ($a == ""){
     die("Не отмечен ни один клиент");

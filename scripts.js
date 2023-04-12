@@ -132,7 +132,6 @@ function attendance_insert_to_db() {
                     customer_data = customer_data + ",";
                 }
                 check_comma += 1;
-                // тут формируется текст для отправки
                 customer_data = customer_data + "('" + dat6 + "'," + elements_to_attendance[i].name + ")";
             }
         }
@@ -142,8 +141,7 @@ function attendance_insert_to_db() {
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/insert_attendance.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send("" + customer_data); // тут будет переменная содержащая текст сформированный для отправки в БД
-
+    xhttp.send("" + customer_data);
 }
 
 
@@ -165,14 +163,13 @@ function payment_insert_to_db() {
                 customer_data = customer_data + "('" + date_for_db + "', '" + elements_to_payment[i].name + "', '" + elements_to_payment[i].value + "')";
             }
         }
-        console.log(customer_data)
     }
     xhttp.onload = function () {
         console.log(this.response)
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/insert_payments.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhttp.send("" + customer_data); // тут будет переменная содержащая текст сформированный для отправки в БД
+    xhttp.send("" + customer_data);
 
 }
 
