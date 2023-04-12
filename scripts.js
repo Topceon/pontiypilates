@@ -82,7 +82,7 @@ function customers_by_group(group_id_for_php){
                     let customer = customers[i];
                     let add_div_var = document.getElementById(`perva`)
                     add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['customer_name']}
-                    <input name="${customer['customer_id']}" type="text">
+                    <input class="payment_input" name="${customer['customer_id']}" type="text">
                     </div>`)
                 }
             }
@@ -149,27 +149,28 @@ function attendance_insert_to_db() {
 
 function payment_insert_to_db() {
     let xhttp = new XMLHttpRequest()
-    let elements_to_attendance = document.getElementsByClassName("ch_box");
+    let elements_to_payment = document.getElementsByClassName("payment_input");
     customer_data = "data="
-    if (elements_to_attendance.length !== 0) {
-        let date_attendance = document.getElementById('date_attendance');
-        let dat6 = date_attendance.value;
+    if (elements_to_payment.length !== 0) {
+        let date_payment = document.getElementById('date_attendance');
+        let date_for_db = date_payment.value;
         check_comma = 0
-        for (let i = 0; i < elements_to_attendance.length; i++) {
-            if (elements_to_attendance[i].checked) {
+        for (let i = 0; i < elements_to_payment.length; i++) {
+            if (elements_to_payment[i].value !== '') {
                 if (check_comma){
                     customer_data = customer_data + ",";
                 }
                 check_comma += 1;
                 // тут формируется текст для отправки
-                customer_data = customer_data + "('" + dat6 + "'," + elements_to_attendance[i].name + ")";
+                customer_data = customer_data + "('" + date_for_db + "', '" + elements_to_payment[i].name + "', '" + elements_to_payment[i].value + "')";
             }
         }
+        console.log(customer_data)
     }
     xhttp.onload = function () {
         console.log(this.response)
     }
-    xhttp.open("POST", 'http://' + SITE_NAME + '/insert_attendance.php', true);
+    xhttp.open("POST", 'http://' + SITE_NAME + '/insert_payments.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.send("" + customer_data); // тут будет переменная содержащая текст сформированный для отправки в БД
 

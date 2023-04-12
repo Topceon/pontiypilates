@@ -84,6 +84,17 @@ body {
     box-shadow: 5px 10px 10px #464646 inset;
 }
 
+.payment_input {
+    position: absolute;
+    right: 1%;
+    margin: 4%;
+    line-height: 4vh;
+    font-size: 100%;
+    height: 3vh;
+    width: 15vh;
+    box-shadow: 5px 10px 10px #464646 inset;
+}
+
 .btn {
     position: fixed;
     background: #eeeeee;
