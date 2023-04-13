@@ -5,6 +5,9 @@ let currentDate = new Date().toISOString().substr(0, 10);
 let group_id_for_php = 0;
 let customers = []
 let switch_page = "attendance_page"
+let foot_btn1 = document.getElementById('attendance_page')
+let foot_btn = document.getElementsByClassName('foot_btn')
+let list_for_clear = document.getElementById('customersList');
 
 function create_new_db() {
     let newdb_btn = document.getElementById('newdb')
@@ -30,7 +33,6 @@ function query_check_db() {
             // устанавливаем текущую дату в датаинпут
             let date_attendance = document.getElementById('date_attendance');
             date_attendance.value = currentDate;
-            let foot_btn = document.getElementsByClassName('foot_btn')
             for (let i = 0; i < foot_btn.length; i++) {
                 foot_btn[i].onclick = switch_page_btns
             }
@@ -53,7 +55,7 @@ function create_ready_btn(foo) {
     let parent_for_clear = document.getElementById('customersList');
     parent_for_clear.innerHTML = '';
     const ready_btn = document.createElement('div');
-    ready_btn.className = "row1"
+    ready_btn.className = "row1 reade_btn"
     ready_btn.id = "perva"
     ready_btn.innerHTML = 'Готово'
     parent_for_clear.appendChild(ready_btn);
@@ -66,6 +68,14 @@ function switch_page_foo(btn_target) {
         attendance_page_foo(btn_target)
     } else if (switch_page === "payment_page") {
         payment_page_foo(btn_target)
+    } else if (switch_page === "new_customer") {
+        new_customer_foo(btn_target)
+    } else if (switch_page === "new_group") {
+        new_group_foo(btn_target)
+    } else if (switch_page === "table_attendance") {
+        table_attendance_foo(btn_target)
+    } else if (switch_page === "table_payment") {
+        table_payment_foo(btn_target)
     }
 }
 
@@ -82,8 +92,7 @@ function attendance_page_foo(btn_target) {
             </div>`)
         }
     } else {
-        let parent_for_clear = document.getElementById('customersList');
-        parent_for_clear.innerHTML = '';
+        list_for_clear.innerHTML = '';
     }
 }
 
@@ -100,9 +109,32 @@ function payment_page_foo(btn_target) {
             </div>`)
         }
     } else {
-        let parent_for_clear = document.getElementById('customersList');
-        parent_for_clear.innerHTML = '';
+        list_for_clear.innerHTML = '';
     }
+}
+
+
+function new_customer_foo(btn_target) {
+    btn_target.id = 'new_group'
+    list_for_clear.innerHTML = '';
+}
+
+
+function new_group_foo(btn_target) {
+    btn_target.id = 'new_customer'
+    list_for_clear.innerHTML = '';
+}
+
+
+function table_attendance_foo(btn_target) {
+    btn_target.id = 'table_payment'
+    list_for_clear.innerHTML = '';
+}
+
+
+function table_payment_foo(btn_target) {
+    btn_target.id = 'table_attendance'
+    list_for_clear.innerHTML = '';
 }
 
 
@@ -110,7 +142,6 @@ function customers_by_group() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         customers = JSON.parse(this.response)
-        let foot_btn1 = document.getElementById('attendance_page')
         switch_page_foo(foot_btn1)
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
@@ -198,7 +229,11 @@ function payment_insert_to_db() {
 
 function switch_page_btns(event) {
     switch_page = event.target.id
-    switch_page_foo(event.target)
+    for (let i = 0; i < foot_btn.length; i++) {
+        foot_btn[i].classList.remove("action");
+        switch_page_foo(event.target);
+        event.target.classList.add("action")
+    }
 }
 
 

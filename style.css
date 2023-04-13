@@ -151,18 +151,18 @@ body {
     align-items: center;
     border-radius: 1vh;
     box-shadow: 3px -6px 15px 2px #464646;
-    background: #eaeaea;
+    background: #d3d3d3;
     /*background: #cd8776;*/
 }
 
-#payment_page {
-    box-shadow: 0 0 100px 30px #0033ff;
+.action {
+    box-shadow: 0 0 150px 5px #0033ff;
     background: #ffffff;
     color: #005CC8;
 }
 
-#attendance_page {
-    box-shadow: 0 0 100px 30px #00ff66;
+.reade_btn {
+    box-shadow: 0 0 50px 0 rgba(0, 51, 255, 0.55);
     background: #ffffff;
-    color: #00fd66;
+    color: #005CC8;
 }
