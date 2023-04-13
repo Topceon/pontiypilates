@@ -147,9 +147,22 @@ body {
     width: 7vh;
     height: 7vh;
     justify-content: center;
+    font-size: 300%;
     align-items: center;
     border-radius: 1vh;
     box-shadow: 3px -6px 15px 2px #464646;
     background: #eaeaea;
     /*background: #cd8776;*/
+}
+
+#payment_page {
+    box-shadow: 0 0 100px 30px #0033ff;
+    background: #ffffff;
+    color: #005CC8;
+}
+
+#attendance_page {
+    box-shadow: 0 0 100px 30px #00ff66;
+    background: #ffffff;
+    color: #00fd66;
 }

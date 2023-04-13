@@ -1,16 +1,10 @@
 console.log('JS подключен')
 
-SITE_NAME = 'pontiypilates'
-
-// получаем текущую дату
+let SITE_NAME = 'pontiypilates'
 let currentDate = new Date().toISOString().substr(0, 10);
 let group_id_for_php = 0;
 let customers = []
-
-
-// переменная для переключения между стандартными страничками
 let switch_page = "attendance_page"
-
 
 function create_new_db() {
     let newdb_btn = document.getElementById('newdb')
@@ -36,6 +30,10 @@ function query_check_db() {
             // устанавливаем текущую дату в датаинпут
             let date_attendance = document.getElementById('date_attendance');
             date_attendance.value = currentDate;
+            let foot_btn = document.getElementsByClassName('foot_btn')
+            for (let i = 0; i < foot_btn.length; i++) {
+                foot_btn[i].onclick = switch_page_btns
+            }
         } else {
             let add_div_var = document.getElementById(`perva`)
             add_div_var.insertAdjacentHTML('afterend', `<div class='row' id='newdb'>Создать новую базу данных?</div>`)
@@ -47,6 +45,7 @@ function query_check_db() {
     xhttp.open("GET", 'http://' + SITE_NAME + '/qry.php');
     xhttp.send();
 }
+
 query_check_db()
 
 
@@ -62,16 +61,17 @@ function create_ready_btn(foo) {
 }
 
 
-function switch_page_foo() {
+function switch_page_foo(btn_target) {
     if (switch_page === "attendance_page") {
-        attendance_page_foo()
+        attendance_page_foo(btn_target)
     } else if (switch_page === "payment_page") {
-        payment_page_foo()
+        payment_page_foo(btn_target)
     }
 }
 
 
-function attendance_page_foo() {
+function attendance_page_foo(btn_target) {
+    btn_target.id = 'payment_page'
     if (customers.length > 0) {
         create_ready_btn(attendance_insert_to_db)
         for (let i = 0; i < customers.length; i++) {
@@ -88,7 +88,8 @@ function attendance_page_foo() {
 }
 
 
-function payment_page_foo() {
+function payment_page_foo(btn_target) {
+    btn_target.id = 'attendance_page'
     if (customers.length > 0) {
         create_ready_btn(payment_insert_to_db)
         for (let i = 0; i < customers.length; i++) {
@@ -109,7 +110,8 @@ function customers_by_group() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         customers = JSON.parse(this.response)
-        switch_page_foo()
+        let foot_btn1 = document.getElementById('attendance_page')
+        switch_page_foo(foot_btn1)
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -194,15 +196,9 @@ function payment_insert_to_db() {
 }
 
 
-function switch_page_btns(btn_id) {
-    switch_page = btn_id.target.id
-    // customers_by_group(group_id_for_php);
-    switch_page_foo()
-}
-
-let foot_btn = document.getElementsByClassName('foot_btn')
-for (let i = 0; i < foot_btn.length; i++) {
-    foot_btn[i].onclick = switch_page_btns
+function switch_page_btns(event) {
+    switch_page = event.target.id
+    switch_page_foo(event.target)
 }
 
 
