@@ -34,7 +34,6 @@ function query_check_db() {
             console.log(this.response)
             // устанавливаем текущую дату в датаинпут
             let date_attendance = document.getElementById('date_attendance');
-            console.log(currentDate)
             date_attendance.value = currentDate;
         }else {
             let add_div_var = document.getElementById(`perva`)
@@ -174,33 +173,14 @@ function payment_insert_to_db() {
 }
 
 
-// Функции для переключения стандартных страничек
-function attendance_page() {
-    switch_page = "attendance_page";
+function switch_page_btns(btn_id){
+    switch_page = btn_id.target.id
     customers_by_group(group_id_for_php);
 }
-let btn_attendance_page = document.getElementById('home_page')
-btn_attendance_page.onclick = attendance_page
-
-function payment_page() {
-    switch_page = "payment_page";
-    customers_by_group(group_id_for_php);
+let foot_btn = document.getElementsByClassName('foot_btn')
+for (let i = 0; i < foot_btn.length; i++) {
+    foot_btn[i].onclick = switch_page_btns
 }
-let btn_payment_page = document.getElementById('payment_page')
-btn_payment_page.onclick = payment_page
-
-function new_customer_page() {
-    switch_page = "new_customer_page"
-}
-let btn_new_customer_page = document.getElementById('new_customer')
-btn_new_customer_page.onclick = new_customer_page
-
-function table_attendance_page() {
-    switch_page = "table_attendance_page"
-}
-let btn_table_attendance_page = document.getElementById('table_attendance')
-btn_table_attendance_page.onclick = table_attendance_page
-
 // функция срабатывающая при нажатии на кнопку создания нового клиента
 
 
