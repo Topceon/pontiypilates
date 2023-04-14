@@ -81,7 +81,9 @@ function switch_page_foo(btn_target) {
 
 
 function attendance_page_foo(btn_target) {
-    btn_target.id = 'payment_page'
+    if (btn_target.id === 'attendance_page') {
+        btn_target.id = 'payment_page'
+    }
     if (customers.length > 0) {
         create_ready_btn(attendance_insert_to_db)
         for (let i = 0; i < customers.length; i++) {
@@ -98,7 +100,9 @@ function attendance_page_foo(btn_target) {
 
 
 function payment_page_foo(btn_target) {
-    btn_target.id = 'attendance_page'
+    if (btn_target.id === 'payment_page') {
+        btn_target.id = 'attendance_page'
+    }
     if (customers.length > 0) {
         create_ready_btn(payment_insert_to_db)
         for (let i = 0; i < customers.length; i++) {
@@ -115,14 +119,29 @@ function payment_page_foo(btn_target) {
 
 
 function new_customer_foo(btn_target) {
-    btn_target.id = 'new_group'
+    if (btn_target.id === 'new_customer') {
+        btn_target.id = 'new_group'
+    }
     list_for_clear.innerHTML = '';
+    create_ready_btn(create_new_customer)
+    let add_div_var = document.getElementById(`perva`)
+    add_div_var.insertAdjacentHTML('beforebegin', `
+        <div class='row' id='name_1'>Имя
+        <input class="payment_input" id='new_customer_name' type="text"></div>
+        <div class='row' id='name_2'>Фамилия<input class="payment_input" id='new_customer_lastname' type="text"></div>`)
 }
 
 
 function new_group_foo(btn_target) {
-    btn_target.id = 'new_customer'
+    if (btn_target.id === 'new_group') {
+        btn_target.id = 'new_customer'
+    }
     list_for_clear.innerHTML = '';
+    create_ready_btn(create_new_group)
+    let add_div_var = document.getElementById(`perva`)
+    add_div_var.insertAdjacentHTML('beforebegin', `
+        <div class='row' id='name_1'>Группа
+        <input class="payment_input" id='new_group_name' type="text"></div>`)
 }
 
 
@@ -155,6 +174,7 @@ function all_groups_from_db() {
     xhttp.onload = function () {
         groups = JSON.parse(this.response)
         let select = document.getElementById('grup');
+        select.innerHTML = '';
         for (let i = 0; i < groups.length; i++) {
             let option = document.createElement("option");
             option.value = groups[i].group_id;
@@ -168,6 +188,37 @@ function all_groups_from_db() {
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/groups.php');
     xhttp.send();
+}
+
+
+function create_new_customer() {
+    let xhttp = new XMLHttpRequest()
+    let new_customer_name = document.getElementById('new_customer_name');
+    let new_customer_lastname = document.getElementById('new_customer_lastname');
+    customer_data = "data="
+    customer_data = customer_data + "('" + new_customer_name.value + "', '" + new_customer_lastname.value + "', '" + group_id_for_php + "')";
+    xhttp.onload = function () {
+        console.log(customer_data)
+        customers_by_group()
+    }
+    xhttp.open("POST", 'http://' + SITE_NAME + '/new_customer.php', true);
+    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.send("" + customer_data);
+}
+
+
+function create_new_group() {
+    let xhttp = new XMLHttpRequest()
+    let new_group_name = document.getElementById('new_group_name');
+    group_data = "data="
+    group_data = group_data + "('" + new_group_name.value + "')";
+    xhttp.onload = function () {
+        all_groups_from_db()
+        console.log(group_data)
+    }
+    xhttp.open("POST", 'http://' + SITE_NAME + '/new_group.php', true);
+    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhttp.send("" + group_data);
 }
 
 

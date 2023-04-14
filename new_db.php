@@ -25,6 +25,7 @@ customer_id INT (6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 customer_name VARCHAR (255) NOT NULL,
 lastname VARCHAR (255) NOT NULL,
 customer_group_id INT (6) NOT NULL
+-- customer_activity BOOLEAN DEFAULT TRUE
 )";
 
 $sql2 = "CREATE TABLE groups (
