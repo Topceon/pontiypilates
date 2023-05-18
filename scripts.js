@@ -60,6 +60,8 @@ function create_ready_btn(foo) {
     ready_btn.innerHTML = 'Готово'
     parent_for_clear.appendChild(ready_btn);
     ready_btn.onclick = foo
+    console.log(ready_btn)
+    console.log(parent_for_clear)
 }
 
 
@@ -83,6 +85,7 @@ function switch_page_foo(btn_target) {
 function attendance_page_foo(btn_target) {
     if (btn_target.id === 'attendance_page') {
         btn_target.id = 'payment_page'
+        // console.log(btn_target)
     }
     if (customers.length > 0) {
         create_ready_btn(attendance_insert_to_db)
@@ -95,6 +98,7 @@ function attendance_page_foo(btn_target) {
         }
     } else {
         list_for_clear.innerHTML = '';
+        // console.log(btn_target)
     }
 }
 
@@ -175,6 +179,7 @@ function all_groups_from_db() {
         groups = JSON.parse(this.response)
         let select = document.getElementById('grup');
         select.innerHTML = '';
+        select.innerHTML = '<option value selected>Выбор группы</option>';
         for (let i = 0; i < groups.length; i++) {
             let option = document.createElement("option");
             option.value = groups[i].group_id;
@@ -183,6 +188,7 @@ function all_groups_from_db() {
         }
         select.addEventListener('change', (event) => {
             group_id_for_php = event.target.value;
+            console.log(group_id_for_php)
             customers_by_group();
         })
     }
@@ -280,9 +286,9 @@ function payment_insert_to_db() {
 
 function switch_page_btns(event) {
     switch_page = event.target.id
+    switch_page_foo(event.target);
     for (let i = 0; i < foot_btn.length; i++) {
         foot_btn[i].classList.remove("action");
-        switch_page_foo(event.target);
         event.target.classList.add("action")
     }
 }
