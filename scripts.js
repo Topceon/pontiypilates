@@ -60,8 +60,6 @@ function create_ready_btn(foo) {
     ready_btn.innerHTML = 'Готово'
     parent_for_clear.appendChild(ready_btn);
     ready_btn.onclick = foo
-    console.log(ready_btn)
-    console.log(parent_for_clear)
 }
 
 
@@ -85,7 +83,6 @@ function switch_page_foo(btn_target) {
 function attendance_page_foo(btn_target) {
     if (btn_target.id === 'attendance_page') {
         btn_target.id = 'payment_page'
-        // console.log(btn_target)
     }
     if (customers.length > 0) {
         create_ready_btn(attendance_insert_to_db)
@@ -98,7 +95,6 @@ function attendance_page_foo(btn_target) {
         }
     } else {
         list_for_clear.innerHTML = '';
-        // console.log(btn_target)
     }
 }
 
@@ -150,13 +146,17 @@ function new_group_foo(btn_target) {
 
 
 function table_attendance_foo(btn_target) {
+    if (btn_target.id === 'table_attendance') {
     btn_target.id = 'table_payment'
+    }
     list_for_clear.innerHTML = '';
 }
 
 
 function table_payment_foo(btn_target) {
+    if (btn_target.id === 'table_payment') {
     btn_target.id = 'table_attendance'
+    }
     list_for_clear.innerHTML = '';
 }
 
