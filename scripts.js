@@ -5,9 +5,10 @@ let currentDate = new Date().toISOString().substr(0, 10);
 let group_id_for_php = 0;
 let customers = []
 let switch_page = "attendance_page"
-let foot_btn1 = document.getElementById('attendance_page')
 let foot_btn = document.getElementsByClassName('foot_btn')
 let list_for_clear = document.getElementById('customersList');
+let ready_btn = ''
+
 
 function create_new_db() {
     let newdb_btn = document.getElementById('newdb')
@@ -54,7 +55,7 @@ query_check_db()
 function create_ready_btn(foo) {
     let parent_for_clear = document.getElementById('customersList');
     parent_for_clear.innerHTML = '';
-    const ready_btn = document.createElement('div');
+    ready_btn = document.createElement('div');
     ready_btn.className = "row1 reade_btn"
     ready_btn.id = "perva"
     ready_btn.innerHTML = 'Готово'
@@ -65,98 +66,95 @@ function create_ready_btn(foo) {
 
 function switch_page_foo(btn_target) {
     if (switch_page === "attendance_page") {
-        attendance_page_foo(btn_target)
+        btn_target.id = 'payment_page'
+        attendance_page_foo()
     } else if (switch_page === "payment_page") {
-        payment_page_foo(btn_target)
+        btn_target.id = 'attendance_page'
+        payment_page_foo()
     } else if (switch_page === "new_customer") {
-        new_customer_foo(btn_target)
+        btn_target.id = 'new_group'
+        new_customer_foo()
     } else if (switch_page === "new_group") {
-        new_group_foo(btn_target)
+        btn_target.id = 'new_customer'
+        new_group_foo()
     } else if (switch_page === "table_attendance") {
-        table_attendance_foo(btn_target)
+        btn_target.id = 'table_payment'
+        table_attendance_foo()
     } else if (switch_page === "table_payment") {
-        table_payment_foo(btn_target)
+        btn_target.id = 'table_attendance'
+        table_payment_foo()
     }
 }
 
 
-function attendance_page_foo(btn_target) {
-    if (btn_target.id === 'attendance_page') {
-        btn_target.id = 'payment_page'
+function ch_box_action(a){
+    return `<input class="ch_box" name=${a} type="checkbox">`
+}
+
+
+function input_action(a){
+    return `<input class="payment_input" name="${a}" type="text">`
+}
+
+
+function create_list_of_customers(itput_for_action){
+    for (let i = 0; i < customers.length; i++) {
+        let customer = customers[i];
+        let input_for_action = itput_for_action(customer['customer_id'])
+        ready_btn.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['customer_name']}
+        ${input_for_action}
+        </div>`)
     }
+}
+
+
+function attendance_page_foo() {
     if (customers.length > 0) {
         create_ready_btn(attendance_insert_to_db)
-        for (let i = 0; i < customers.length; i++) {
-            let customer = customers[i];
-            let add_div_var = document.getElementById(`perva`)
-            add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['customer_name']}
-            <input class="ch_box" name="${customer['customer_id']}" type="checkbox">
-            </div>`)
-        }
+        create_list_of_customers(ch_box_action)
     } else {
         list_for_clear.innerHTML = '';
     }
 }
 
 
-function payment_page_foo(btn_target) {
-    if (btn_target.id === 'payment_page') {
-        btn_target.id = 'attendance_page'
-    }
+function payment_page_foo() {
     if (customers.length > 0) {
         create_ready_btn(payment_insert_to_db)
-        for (let i = 0; i < customers.length; i++) {
-            let customer = customers[i];
-            let add_div_var = document.getElementById(`perva`)
-            add_div_var.insertAdjacentHTML('beforebegin', `<div class='row' id=${customer['customer_id']}>${customer['customer_name']}
-            <input class="payment_input" name="${customer['customer_id']}" type="text">
-            </div>`)
-        }
+        create_list_of_customers(input_action)
     } else {
         list_for_clear.innerHTML = '';
     }
 }
 
 
-function new_customer_foo(btn_target) {
-    if (btn_target.id === 'new_customer') {
-        btn_target.id = 'new_group'
-    }
+function new_customer_foo() {
     list_for_clear.innerHTML = '';
     create_ready_btn(create_new_customer)
-    let add_div_var = document.getElementById(`perva`)
-    add_div_var.insertAdjacentHTML('beforebegin', `
+    let ready_btn = document.getElementById(`perva`)
+    ready_btn.insertAdjacentHTML('beforebegin', `
         <div class='row' id='name_1'>Имя
         <input class="payment_input" id='new_customer_name' type="text"></div>
         <div class='row' id='name_2'>Фамилия<input class="payment_input" id='new_customer_lastname' type="text"></div>`)
 }
 
 
-function new_group_foo(btn_target) {
-    if (btn_target.id === 'new_group') {
-        btn_target.id = 'new_customer'
-    }
+function new_group_foo() {
     list_for_clear.innerHTML = '';
     create_ready_btn(create_new_group)
-    let add_div_var = document.getElementById(`perva`)
-    add_div_var.insertAdjacentHTML('beforebegin', `
+    let ready_btn = document.getElementById(`perva`)
+    ready_btn.insertAdjacentHTML('beforebegin', `
         <div class='row' id='name_1'>Группа
         <input class="payment_input" id='new_group_name' type="text"></div>`)
 }
 
 
-function table_attendance_foo(btn_target) {
-    if (btn_target.id === 'table_attendance') {
-    btn_target.id = 'table_payment'
-    }
+function table_attendance_foo() {
     list_for_clear.innerHTML = '';
 }
 
 
-function table_payment_foo(btn_target) {
-    if (btn_target.id === 'table_payment') {
-    btn_target.id = 'table_attendance'
-    }
+function table_payment_foo() {
     list_for_clear.innerHTML = '';
 }
 
@@ -165,7 +163,7 @@ function customers_by_group() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         customers = JSON.parse(this.response)
-        switch_page_foo(foot_btn1)
+        switch_page_foo(switch_page)
     }
     xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
