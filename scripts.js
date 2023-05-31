@@ -11,13 +11,16 @@ let ready_btn = ''
 
 
 function create_new_db() {
-    let newdb_btn = document.getElementById('newdb')
+    let newdb_btn = document.getElementById('perva')
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         if (this.response === 'База данных успешно созданаТаблица создана успешно') {
             //кнопка должна быть удалена
             newdb_btn.remove();
             console.log(this.response)
+            query_check_db()
+            switch_page = "new_group"
+            new_group_foo()
         }
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/new_db.php');
@@ -38,11 +41,12 @@ function query_check_db() {
                 foot_btn[i].onclick = switch_page_btns
             }
         } else {
-            let add_div_var = document.getElementById(`perva`)
-            add_div_var.insertAdjacentHTML('afterend', `<div class='row' id='newdb'>Создать новую базу данных?</div>`)
-            console.log('Создать новую базу данных?')
-            let btn_click = document.getElementById('newdb')
-            btn_click.onclick = create_new_db
+            create_ready_btn(create_new_db, "Создать базу данных?")
+            // let add_div_var = document.getElementById(`perva`)
+            // add_div_var.insertAdjacentHTML('afterend', `<div class='row' id='newdb'>Создать новую базу данных?</div>`)
+            // console.log('Создать новую базу данных?')
+            // let btn_click = document.getElementById('newdb')
+            // btn_click.onclick = create_new_db
         }
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/qry.php');
@@ -52,13 +56,13 @@ function query_check_db() {
 query_check_db()
 
 
-function create_ready_btn(foo) {
+function create_ready_btn(foo, text) {
     let parent_for_clear = document.getElementById('customersList');
     parent_for_clear.innerHTML = '';
     ready_btn = document.createElement('div');
     ready_btn.className = "row1 reade_btn"
     ready_btn.id = "perva"
-    ready_btn.innerHTML = 'Готово'
+    ready_btn.innerHTML = text
     parent_for_clear.appendChild(ready_btn);
     ready_btn.onclick = foo
 }
@@ -87,12 +91,12 @@ function switch_page_foo(btn_target) {
 }
 
 
-function ch_box_action(a){
+function ch_box_for_list_customers(a){
     return `<input class="ch_box" name=${a} type="checkbox">`
 }
 
 
-function input_action(a){
+function input_for_list_customers(a){
     return `<input class="payment_input" name="${a}" type="text">`
 }
 
@@ -110,8 +114,8 @@ function create_list_of_customers(itput_for_action){
 
 function attendance_page_foo() {
     if (customers.length > 0) {
-        create_ready_btn(attendance_insert_to_db)
-        create_list_of_customers(ch_box_action)
+        create_ready_btn(attendance_insert_to_db, 'Готово')
+        create_list_of_customers(ch_box_for_list_customers)
     } else {
         list_for_clear.innerHTML = '';
     }
@@ -120,8 +124,8 @@ function attendance_page_foo() {
 
 function payment_page_foo() {
     if (customers.length > 0) {
-        create_ready_btn(payment_insert_to_db)
-        create_list_of_customers(input_action)
+        create_ready_btn(payment_insert_to_db, 'Готово')
+        create_list_of_customers(input_for_list_customers)
     } else {
         list_for_clear.innerHTML = '';
     }
@@ -130,7 +134,7 @@ function payment_page_foo() {
 
 function new_customer_foo() {
     list_for_clear.innerHTML = '';
-    create_ready_btn(create_new_customer)
+    create_ready_btn(create_new_customer, 'Добавить клиента')
     let ready_btn = document.getElementById(`perva`)
     ready_btn.insertAdjacentHTML('beforebegin', `
         <div class='row' id='name_1'>Имя
@@ -141,7 +145,7 @@ function new_customer_foo() {
 
 function new_group_foo() {
     list_for_clear.innerHTML = '';
-    create_ready_btn(create_new_group)
+    create_ready_btn(create_new_group, 'Создать группу')
     let ready_btn = document.getElementById(`perva`)
     ready_btn.insertAdjacentHTML('beforebegin', `
         <div class='row' id='name_1'>Группа
