@@ -2,12 +2,39 @@ console.log('JS подключен')
 
 let SITE_NAME = 'pontiypilates'
 let currentDate = new Date().toISOString().substr(0, 10);
+let month_ago_date1 = new Date()
+month_ago_date1.setMonth(month_ago_date1.getMonth() - 1);
+let month_ago_date = month_ago_date1.toISOString().substr(0, 10)
 let group_id_for_php = 0;
 let customers = []
 let switch_page = "attendance_page"
 let foot_btn = document.getElementsByClassName('foot_btn')
 let list_for_clear = document.getElementById('customersList');
+let header_for_inputs = document.getElementById('re');
 let ready_btn = ''
+let select_for_header = document.createElement('select')
+let current_date_input = document.createElement('input')
+let past_date_input = document.createElement('input')
+let inputs_for_header = ''
+
+
+function create_html_objects(){
+    select_for_header.type = "select"
+    select_for_header.id = "grup"
+    select_for_header.Name = "grup"
+
+    current_date_input.type = "date"
+    current_date_input.Name = "date"
+    current_date_input.id = "date_attendance"
+    current_date_input.value = currentDate;
+
+
+    past_date_input.type = "date"
+    past_date_input.Name = "date"
+    past_date_input.id = "past_date_attendance"
+    past_date_input.value = month_ago_date
+}
+create_html_objects()
 
 
 function create_new_db() {
@@ -35,18 +62,11 @@ function query_check_db() {
             all_groups_from_db()
             console.log(this.response)
             // устанавливаем текущую дату в датаинпут
-            let date_attendance = document.getElementById('date_attendance');
-            date_attendance.value = currentDate;
             for (let i = 0; i < foot_btn.length; i++) {
                 foot_btn[i].onclick = switch_page_btns
             }
         } else {
             create_ready_btn(create_new_db, "Создать базу данных?")
-            // let add_div_var = document.getElementById(`perva`)
-            // add_div_var.insertAdjacentHTML('afterend', `<div class='row' id='newdb'>Создать новую базу данных?</div>`)
-            // console.log('Создать новую базу данных?')
-            // let btn_click = document.getElementById('newdb')
-            // btn_click.onclick = create_new_db
         }
     }
     xhttp.open("GET", 'http://' + SITE_NAME + '/qry.php');
@@ -96,6 +116,14 @@ function ch_box_for_list_customers(a){
 }
 
 
+function create_inputs_in_header(inputs){
+    header_for_inputs.innerText = ''
+    for (let i = 0; i < inputs.length; i++) {
+        header_for_inputs.appendChild(inputs[i])
+    }
+}
+
+
 function input_for_list_customers(a){
     return `<input class="payment_input" name="${a}" type="text">`
 }
@@ -113,6 +141,7 @@ function create_list_of_customers(itput_for_action){
 
 
 function attendance_page_foo() {
+    create_inputs_in_header(Array(select_for_header, current_date_input))
     if (customers.length > 0) {
         create_ready_btn(attendance_insert_to_db, 'Готово')
         create_list_of_customers(ch_box_for_list_customers)
@@ -123,6 +152,7 @@ function attendance_page_foo() {
 
 
 function payment_page_foo() {
+    create_inputs_in_header(Array(select_for_header, current_date_input))
     if (customers.length > 0) {
         create_ready_btn(payment_insert_to_db, 'Готово')
         create_list_of_customers(input_for_list_customers)
@@ -133,6 +163,7 @@ function payment_page_foo() {
 
 
 function new_customer_foo() {
+    create_inputs_in_header(Array(select_for_header))
     list_for_clear.innerHTML = '';
     create_ready_btn(create_new_customer, 'Добавить клиента')
     let ready_btn = document.getElementById(`perva`)
@@ -144,6 +175,7 @@ function new_customer_foo() {
 
 
 function new_group_foo() {
+    create_inputs_in_header(Array())
     list_for_clear.innerHTML = '';
     create_ready_btn(create_new_group, 'Создать группу')
     let ready_btn = document.getElementById(`perva`)
@@ -154,12 +186,24 @@ function new_group_foo() {
 
 
 function table_attendance_foo() {
-    list_for_clear.innerHTML = '';
+    create_inputs_in_header(Array(select_for_header, past_date_input, current_date_input))
+    if (customers.length > 0) {
+        create_ready_btn(attendance_insert_to_db, 'Создать таблицу')
+        create_list_of_customers(ch_box_for_list_customers)
+    } else {
+        list_for_clear.innerHTML = '';
+    }
 }
 
 
 function table_payment_foo() {
-    list_for_clear.innerHTML = '';
+    create_inputs_in_header(Array(select_for_header, past_date_input, current_date_input))
+    if (customers.length > 0) {
+        create_ready_btn(attendance_insert_to_db, 'Создать таблицу')
+        create_list_of_customers(ch_box_for_list_customers)
+    } else {
+        list_for_clear.innerHTML = '';
+    }
 }
 
 
@@ -179,16 +223,14 @@ function all_groups_from_db() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         groups = JSON.parse(this.response)
-        let select = document.getElementById('grup');
-        select.innerHTML = '';
-        select.innerHTML = '<option value selected>Выбор группы</option>';
+        select_for_header.innerHTML = '<option value selected>Выбор группы</option>';
         for (let i = 0; i < groups.length; i++) {
             let option = document.createElement("option");
             option.value = groups[i].group_id;
             option.text = groups[i].group;
-            select.add(option);
+            select_for_header.add(option);
         }
-        select.addEventListener('change', (event) => {
+        select_for_header.addEventListener('change', (event) => {
             group_id_for_php = event.target.value;
             console.log(group_id_for_php)
             customers_by_group();
@@ -295,11 +337,6 @@ function switch_page_btns(event) {
     }
 }
 
-
-// функция срабатывающая при нажатии на кнопку создания нового клиента
-
-
-// функция срабатывающая при нажатии на кнопку создания новой группы
 
 
 // функция срабатывающая при нажатии на кнопку создания таблицы присутствующих

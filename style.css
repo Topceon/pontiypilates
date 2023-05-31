@@ -7,8 +7,8 @@ body {
 
 .fix_row2 { /* "." обозначается класс */
     padding-left: 5%;
+    padding-bottom: 5%;
     position: fixed;
-    height: 330px;
     width: 100%;
     line-height: 4vh;
     font-size: 100%;
@@ -19,8 +19,8 @@ body {
 .fix_row { /* "." обозначается класс */
     background: #eeeeee;
     padding-left: 5%;
+    padding-bottom: 5%;
     position: fixed;
-    height: 330px;
     width: 100%;
     line-height: 4vh;
     font-size: 100%;
@@ -29,12 +29,12 @@ body {
 }
 
 .list { /* "." обозначается класс */
-    padding: 370px 4%;
+    padding: 570px 4%;
     /*box-shadow: 5px 0 20px 10px #464646 inset;*/
     z-index: 2;
 }
 
-#date_attendance,#grup{
+#date_attendance,#grup,#past_date_attendance{
     margin-left: 4%;
     margin-top: 4%;
     height: 100px;
