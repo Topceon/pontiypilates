@@ -2,18 +2,18 @@
 
 include 'db.php';
 
-$conn = mysqli_connect($HOST, $USER, $PASSWORD);
+// $conn = mysqli_connect($HOST, $USER, $PASSWORD);
 
 
 // создание базы данных
 
-$sql = "CREATE DATABASE $DB_NAME";
-
-if (mysqli_query($conn, $sql)) {
-    echo "База данных успешно создана";
-} else {
-    echo "Ошибка создания базы данных: " . mysqli_error($conn);
-}
+// $sql = "CREATE DATABASE $DB_NAME";
+//
+// if (mysqli_query($conn, $sql)) {
+//     echo "База данных успешно создана";
+// } else {
+//     echo "Ошибка создания базы данных: " . mysqli_error($conn);
+// }
 
 
 $conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);

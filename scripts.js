@@ -41,7 +41,7 @@ function create_new_db() {
     let newdb_btn = document.getElementById('perva')
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
-        if (this.response === 'База данных успешно созданаТаблица создана успешно') {
+        if (this.response === 'Таблица создана успешно') {
             //кнопка должна быть удалена
             newdb_btn.remove();
             console.log(this.response)
