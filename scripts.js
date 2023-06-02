@@ -33,6 +33,13 @@ function create_html_objects(){
     past_date_input.Name = "date"
     past_date_input.id = "past_date_attendance"
     past_date_input.value = month_ago_date
+
+    select_for_header.innerHTML = '<option value selected>Выбор группы</option>';
+    select_for_header.addEventListener('change', (event) => {
+        group_id_for_php = event.target.value;
+        customers_by_group();
+    })
+
 }
 create_html_objects()
 
@@ -236,18 +243,12 @@ function all_groups_from_db() {
     let xhttp = new XMLHttpRequest()
     xhttp.onload = function () {
         groups = JSON.parse(this.response)
-        select_for_header.innerHTML = '<option value selected>Выбор группы</option>';
         for (let i = 0; i < groups.length; i++) {
             let option = document.createElement("option");
             option.value = groups[i].group_id;
             option.text = groups[i].group;
             select_for_header.add(option);
         }
-        select_for_header.addEventListener('change', (event) => {
-            group_id_for_php = event.target.value;
-            console.log(group_id_for_php)
-            customers_by_group();
-        })
     }
     xhttp.open("GET", SITE_NAME + '/groups.php');
     xhttp.send();
@@ -304,7 +305,6 @@ function attendance_insert_to_db() {
         }
     }
     xhttp.onload = function () {
-        console.log(this.response)
     }
     xhttp.open("POST", SITE_NAME + '/insert_attendance.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -332,7 +332,6 @@ function payment_insert_to_db() {
         }
     }
     xhttp.onload = function () {
-        console.log(this.response)
     }
     xhttp.open("POST", SITE_NAME + '/insert_payments.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
