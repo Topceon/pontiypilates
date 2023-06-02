@@ -47,6 +47,9 @@ body {
 
 .row,.row1 { /* "." обозначается класс */
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: #eeeeee;
     line-height: 6vh;
     font-size: 300%;
@@ -78,10 +81,48 @@ body {
 .ch_box {
     position: absolute;
     right: 1%;
-    margin: 4%;
+    margin:  4%;
     height: 3vh;
     width: 3vh;
     box-shadow: 5px 10px 10px #464646 inset;
+}
+
+
+.area_for_date {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: #949494;
+    margin: 2% 4%;
+    /*font-size: 100%;*/
+    height: 5vh;
+    width: 15vh;
+    box-shadow: 5px 10px 10px #464646 inset;
+    z-index: 99999999;
+}
+
+
+.inside_area_for_date {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 0px;
+    margin: 5%;
+    line-height: 1vh;
+    /*font-size: 100%;*/
+    height: 4vh;
+    width: auto;
+}
+
+.date_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1%;
+    background: #dcdcdc;
+    height: 4vh;
+    width: 4vh;
 }
 
 .payment_input {
@@ -159,6 +200,14 @@ body {
     box-shadow: 0 0 150px 5px #0033ff;
     background: #ffffff;
     color: #005CC8;
+    z-index: 99;
+}
+
+.date_action {
+    box-shadow: 0 0 50px 3px #0033ff;
+    background: #ffffff;
+    color: #005CC8;
+    z-index: 99;
 }
 
 .reade_btn {

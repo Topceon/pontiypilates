@@ -1,6 +1,6 @@
 console.log('JS подключен')
 
-let SITE_NAME = 'pontiypilates'
+let SITE_NAME = 'http://pontiypilates'
 let currentDate = new Date().toISOString().substr(0, 10);
 let month_ago_date1 = new Date()
 month_ago_date1.setMonth(month_ago_date1.getMonth() - 1);
@@ -50,7 +50,7 @@ function create_new_db() {
             new_group_foo()
         }
     }
-    xhttp.open("GET", 'http://' + SITE_NAME + '/new_db.php');
+    xhttp.open("GET", SITE_NAME + '/new_db.php');
     xhttp.send();
 }
 
@@ -69,7 +69,7 @@ function query_check_db() {
             create_ready_btn(create_new_db, "Создать базу данных?")
         }
     }
-    xhttp.open("GET", 'http://' + SITE_NAME + '/qry.php');
+    xhttp.open("GET", SITE_NAME + '/qry.php');
     xhttp.send();
 }
 
@@ -115,6 +115,19 @@ function ch_box_for_list_customers(a){
     return `<input class="ch_box" name=${a} type="checkbox">`
 }
 
+function area_for_date(a){
+    return `<div class="area_for_date" id=a>
+                <div class="inside_area_for_date">
+                    <div class="date_box">1</div>
+                    <div class="date_box">2</div>
+                    <div class="date_box date_action">3</div>
+                    <div class="date_box">4</div>
+                    <div class="date_box">5</div>
+                    <div class="date_box">6</div>
+                    <div class="date_box">7</div>
+                </div>
+            </div>`
+}
 
 function create_inputs_in_header(inputs){
     header_for_inputs.innerText = ''
@@ -189,7 +202,7 @@ function table_attendance_foo() {
     create_inputs_in_header(Array(select_for_header, past_date_input, current_date_input))
     if (customers.length > 0) {
         create_ready_btn(attendance_insert_to_db, 'Создать таблицу')
-        create_list_of_customers(ch_box_for_list_customers)
+        create_list_of_customers(area_for_date)
     } else {
         list_for_clear.innerHTML = '';
     }
@@ -213,7 +226,7 @@ function customers_by_group() {
         customers = JSON.parse(this.response)
         switch_page_foo(switch_page)
     }
-    xhttp.open("POST", 'http://' + SITE_NAME + '/customers.php', true);
+    xhttp.open("POST", SITE_NAME + '/customers.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.send("param=" + group_id_for_php);
 }
@@ -236,7 +249,7 @@ function all_groups_from_db() {
             customers_by_group();
         })
     }
-    xhttp.open("GET", 'http://' + SITE_NAME + '/groups.php');
+    xhttp.open("GET", SITE_NAME + '/groups.php');
     xhttp.send();
 }
 
@@ -251,7 +264,7 @@ function create_new_customer() {
         console.log(customer_data)
         customers_by_group()
     }
-    xhttp.open("POST", 'http://' + SITE_NAME + '/new_customer.php', true);
+    xhttp.open("POST", SITE_NAME + '/new_customer.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.send("" + customer_data);
 }
@@ -266,7 +279,7 @@ function create_new_group() {
         all_groups_from_db()
         console.log(group_data)
     }
-    xhttp.open("POST", 'http://' + SITE_NAME + '/new_group.php', true);
+    xhttp.open("POST", SITE_NAME + '/new_group.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.send("" + group_data);
 }
@@ -293,7 +306,7 @@ function attendance_insert_to_db() {
     xhttp.onload = function () {
         console.log(this.response)
     }
-    xhttp.open("POST", 'http://' + SITE_NAME + '/insert_attendance.php', true);
+    xhttp.open("POST", SITE_NAME + '/insert_attendance.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.send("" + customer_data);
 }
@@ -321,7 +334,7 @@ function payment_insert_to_db() {
     xhttp.onload = function () {
         console.log(this.response)
     }
-    xhttp.open("POST", 'http://' + SITE_NAME + '/insert_payments.php', true);
+    xhttp.open("POST", SITE_NAME + '/insert_payments.php', true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhttp.send("" + customer_data);
 

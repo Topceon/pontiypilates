@@ -4,18 +4,18 @@ include 'db.php';
 
 $conn = mysqli_connect($HOST, $USER, $PASSWORD, $DB_NAME);
 
-
+$a = '3, 4, 6, 7, 8';
 if (!$conn) {
     die("Ошибка подключения: " . mysqli_connect_error());
 }
 
 // $sql = "SELECT group_id, group_name FROM groups";
-$sql = "SELECT * FROM `payments` JOIN `customers` ON `payments`.`customer_id` = `customers`.`id` WHERE `customers`.`id` IN (".implode(",", $customers).")";
+$sql = "SELECT * FROM `payments` WHERE `payment_customers_id` IN ($a)";
 $result = mysqli_query($conn, $sql);
 
 $rows = array();
 while ($row = mysqli_fetch_array($result)) {
-    $rows[] = array("group_id" => $row["group_id"], "group" => $row["group_name"]);
+    $rows[] = array("customer_id" => $row["payment_customers_id"], "value" => $row["payment_value"]);
 }
 
 $json = json_encode($rows);
